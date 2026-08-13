@@ -46,7 +46,7 @@ export function generateResumeDoc() {
   // CONTACT INFORMATION
   doc.setFontSize(8.5);
   doc.setTextColor(30, 58, 138); // Deep accent
-  const contactText = "syedahmad1306@gmail.com   |   linkedin.com/in/md-arfin-ahmad-   |   github.com/ArfinAhmad217";
+  const contactText = "syedahmad1306@gmail.com   |   linkedin.com/in/md-arfin-rizvi-07765527b/   |   github.com/ArfinAhmad217";
   doc.text(contactText, pageWidth / 2, y, { align: "center" });
   y += 18;
 

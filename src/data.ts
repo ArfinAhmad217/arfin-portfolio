@@ -12,8 +12,8 @@ export const PERSONAL_INFO = {
     { label: "AI Specialist", value: "GenAI" }
   ],
   socials: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    github: "https://github.com/ArfinAhmad217",
+    linkedin: "https://www.linkedin.com/in/md-arfin-rizvi-07765527b/",
     email: "syedahmad1306@gmail.com"
   }
 };
@@ -26,7 +26,7 @@ export const PROJECTS_DATA: Project[] = [
     techStack: ["Python", "Flask", "PostgreSQL", "GitHub"],
     imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
     liveUrl: "https://example.com/demo/warehouse",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/ArfinAhmad217",
     caseStudyUrl: "#",
     featured: true,
     gridSpan: "md:col-span-1"
@@ -38,7 +38,7 @@ export const PROJECTS_DATA: Project[] = [
     techStack: ["Python", "FastAPI", "PostgreSQL", "AWS", "GitHub CI/CD"],
     imageUrl: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80",
     liveUrl: "https://example.com/demo/school",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/ArfinAhmad217",
     caseStudyUrl: "#",
     featured: true,
     gridSpan: "md:col-span-1"
