@@ -10,12 +10,6 @@ A modern, responsive, and performance-oriented developer portfolio built with **
 
 ---
 
-## 🚀 Live Demo
-
-- **Live URL:** [Live Portfolio URL](https://ais-dev-cdpukidu5wzyurpvlxls6v-682612298751.asia-east1.run.app)
-
----
-
 ## 🛠️ Tech Stack
 
 - **Framework:** React 19
