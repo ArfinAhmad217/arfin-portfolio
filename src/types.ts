@@ -1,9 +1,16 @@
+export interface ProjectScreenshot {
+  title: string;
+  url: string;
+  tag?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   techStack: string[];
   imageUrl: string;
+  screenshots?: ProjectScreenshot[];
   liveUrl?: string;
   githubUrl?: string;
   caseStudyUrl?: string;

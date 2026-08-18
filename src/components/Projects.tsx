@@ -1,9 +1,47 @@
-import { useState, MouseEvent } from "react";
-import { FolderGit2, Link2, Github, HelpCircle, ArrowUpRight, Wrench } from "lucide-react";
+import { useState, MouseEvent, useEffect } from "react";
+import { FolderGit2, Link2, Github, HelpCircle, ArrowUpRight, Wrench, Maximize2, ChevronLeft, ChevronRight, X, Images } from "lucide-react";
 import { PROJECTS_DATA } from "../data";
-import { Project } from "../types";
+import { Project, ProjectScreenshot } from "../types";
 
 export default function Projects() {
+  const [activeLightbox, setActiveLightbox] = useState<{
+    projectTitle: string;
+    screenshots: ProjectScreenshot[];
+    currentIndex: number;
+  } | null>(null);
+
+  // Close lightbox on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!activeLightbox) return;
+      if (e.key === "Escape") {
+        setActiveLightbox(null);
+      } else if (e.key === "ArrowLeft") {
+        setActiveLightbox((prev) =>
+          prev
+            ? {
+                ...prev,
+                currentIndex:
+                  (prev.currentIndex - 1 + prev.screenshots.length) %
+                  prev.screenshots.length,
+              }
+            : null
+        );
+      } else if (e.key === "ArrowRight") {
+        setActiveLightbox((prev) =>
+          prev
+            ? {
+                ...prev,
+                currentIndex: (prev.currentIndex + 1) % prev.screenshots.length,
+              }
+            : null
+        );
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeLightbox]);
+
   return (
     <section id="projects" className="py-24 px-4 bg-white/30 dark:bg-stone-900/10">
       <div className="w-full max-w-5xl mx-auto">
@@ -26,7 +64,19 @@ export default function Projects() {
         {/* Bento Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(380px,_auto)]">
           {PROJECTS_DATA.map((project) => (
-            <BentoCard key={project.id} project={project} />
+            <BentoCard
+              key={project.id}
+              project={project}
+              onOpenLightbox={(index) => {
+                if (project.screenshots && project.screenshots.length > 0) {
+                  setActiveLightbox({
+                    projectTitle: project.title,
+                    screenshots: project.screenshots,
+                    currentIndex: index,
+                  });
+                }
+              }}
+            />
           ))}
         </div>
 
@@ -70,6 +120,135 @@ export default function Projects() {
         </div>
 
       </div>
+
+      {/* Fullscreen Lightbox Modal for Screenshots */}
+      {activeLightbox && (
+        <div
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 transition-all"
+          onClick={() => setActiveLightbox(null)}
+          id="screenshot-lightbox-modal"
+        >
+          {/* Header Bar */}
+          <div
+            className="w-full max-w-5xl flex items-center justify-between text-white pb-3 mb-2 border-b border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-1.5 rounded-lg bg-white/10">
+                <Images className="w-4 h-4 text-brand-accent" />
+              </div>
+              <div>
+                <h4 className="font-display font-bold text-sm sm:text-base text-white">
+                  {activeLightbox.projectTitle}
+                </h4>
+                <p className="font-sans text-xs text-stone-400">
+                  {activeLightbox.screenshots[activeLightbox.currentIndex]?.title}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-stone-400 bg-white/10 px-2.5 py-1 rounded-full">
+                {activeLightbox.currentIndex + 1} / {activeLightbox.screenshots.length}
+              </span>
+              <button
+                onClick={() => setActiveLightbox(null)}
+                className="p-1.5 rounded-full hover:bg-white/20 text-stone-300 hover:text-white transition-colors"
+                id="lightbox-close-btn"
+                aria-label="Close dialog"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Image Container */}
+          <div
+            className="relative w-full max-w-5xl max-h-[75vh] flex items-center justify-center my-auto overflow-hidden rounded-2xl border border-white/15 bg-stone-950 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={activeLightbox.screenshots[activeLightbox.currentIndex]?.url}
+              alt={activeLightbox.screenshots[activeLightbox.currentIndex]?.title}
+              className="w-full h-auto max-h-[72vh] object-contain select-none"
+              referrerPolicy="no-referrer"
+            />
+
+            {/* Navigation Arrows */}
+            {activeLightbox.screenshots.length > 1 && (
+              <>
+                <button
+                  onClick={() =>
+                    setActiveLightbox((prev) =>
+                      prev
+                        ? {
+                            ...prev,
+                            currentIndex:
+                              (prev.currentIndex - 1 + prev.screenshots.length) %
+                              prev.screenshots.length,
+                          }
+                        : null
+                    )
+                  }
+                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 hover:bg-black/85 text-white border border-white/20 shadow-lg transition-all"
+                  aria-label="Previous image"
+                  id="lightbox-prev-btn"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() =>
+                    setActiveLightbox((prev) =>
+                      prev
+                        ? {
+                            ...prev,
+                            currentIndex:
+                              (prev.currentIndex + 1) % prev.screenshots.length,
+                          }
+                        : null
+                    )
+                  }
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 hover:bg-black/85 text-white border border-white/20 shadow-lg transition-all"
+                  aria-label="Next image"
+                  id="lightbox-next-btn"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Bottom Thumbnails Strip */}
+          {activeLightbox.screenshots.length > 1 && (
+            <div
+              className="flex items-center gap-2 mt-3 overflow-x-auto max-w-full p-1"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {activeLightbox.screenshots.map((shot, idx) => (
+                <button
+                  key={idx}
+                  onClick={() =>
+                    setActiveLightbox((prev) => (prev ? { ...prev, currentIndex: idx } : null))
+                  }
+                  className={`relative rounded-lg overflow-hidden border-2 transition-all w-16 sm:w-20 h-10 sm:h-12 shrink-0 ${
+                    activeLightbox.currentIndex === idx
+                      ? "border-brand-accent scale-105 shadow-md shadow-brand-accent/20"
+                      : "border-white/20 opacity-50 hover:opacity-90"
+                  }`}
+                  id={`lightbox-thumb-${idx}`}
+                >
+                  <img
+                    src={shot.url}
+                    alt={shot.title}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }
@@ -179,9 +358,26 @@ const PREMIUM_TOOLS = [
 ];
 
 /* Individual Bento Card Subcomponent with dynamic Mouse-Follow Spotlight effect */
-function BentoCard({ project }: { project: Project; key?: string }) {
+function BentoCard({
+  project,
+  onOpenLightbox,
+}: {
+  project: Project;
+  onOpenLightbox: (screenshotIndex: number) => void;
+  key?: string;
+}) {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [activeShotIndex, setActiveShotIndex] = useState(0);
+
+  const hasScreenshots = project.screenshots && project.screenshots.length > 0;
+  const currentImageUrl = hasScreenshots
+    ? project.screenshots![activeShotIndex]?.url || project.imageUrl
+    : project.imageUrl;
+
+  const currentImageTitle = hasScreenshots
+    ? project.screenshots![activeShotIndex]?.title || project.title
+    : project.title;
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -210,26 +406,66 @@ function BentoCard({ project }: { project: Project; key?: string }) {
 
       {/* Glass overlay lines on featured cards */}
       {project.featured && (
-        <div className="absolute top-0 right-0 py-1.5 px-3.5 bg-brand-accent/10 rounded-bl-xl border-l border-b border-brand-accent/15">
+        <div className="absolute top-0 right-0 py-1.5 px-3.5 bg-brand-accent/10 rounded-bl-xl border-l border-b border-brand-accent/15 z-10">
           <span className="font-mono text-[9px] uppercase font-bold tracking-widest text-brand-accent">Featured Solution</span>
         </div>
       )}
 
       {/* Core card structure slots */}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-4">
         
         {/* Project Thumbnail Image Container */}
-        <div className="relative w-full h-[180px] rounded-2xl overflow-hidden bg-stone-100 border border-stone-200/40 dark:border-stone-900 shadow-inner">
+        <div className="relative w-full h-[190px] rounded-2xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200/40 dark:border-stone-800 shadow-inner group/img">
           <img
-            src={project.imageUrl}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            src={currentImageUrl}
+            alt={currentImageTitle}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/img:scale-105"
             referrerPolicy="no-referrer"
             loading="lazy"
           />
           {/* Accent shading layer */}
-          <div className="absolute inset-0 bg-stone-900/5 dark:bg-stone-950/20 group-hover:opacity-40 transition-opacity" />
+          <div className="absolute inset-0 bg-stone-900/5 dark:bg-stone-950/20 group-hover/img:opacity-40 transition-opacity" />
+
+          {/* Screenshot zoom overlay button */}
+          {hasScreenshots && (
+            <button
+              onClick={() => onOpenLightbox(activeShotIndex)}
+              className="absolute bottom-2.5 right-2.5 p-2 rounded-xl bg-black/65 hover:bg-black/85 text-white backdrop-blur-md border border-white/20 shadow-md transition-all flex items-center gap-1.5 text-xs opacity-90 group-hover/img:opacity-100 hover:scale-105"
+              id={`project-expand-${project.id}`}
+              title="Click to view full screenshot"
+            >
+              <Maximize2 className="w-3.5 h-3.5 text-brand-accent" />
+              <span className="font-sans text-[11px] font-medium hidden sm:inline">Preview Full UI</span>
+            </button>
+          )}
+
+          {/* Screenshot Tag overlay badge */}
+          {hasScreenshots && project.screenshots![activeShotIndex]?.tag && (
+            <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-stone-900/80 backdrop-blur-md border border-white/10 text-white font-mono text-[10px] tracking-wide shadow">
+              {project.screenshots![activeShotIndex].tag}
+            </div>
+          )}
         </div>
+
+        {/* Multi-Screenshot Tab Selector if available */}
+        {hasScreenshots && project.screenshots!.length > 1 && (
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+            {project.screenshots!.map((shot, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveShotIndex(idx)}
+                className={`px-2.5 py-1 rounded-lg font-sans text-[11px] font-medium transition-all shrink-0 border ${
+                  activeShotIndex === idx
+                    ? "bg-brand-accent/10 dark:bg-brand-accent/20 text-brand-accent border-brand-accent/30 font-semibold"
+                    : "bg-stone-50 dark:bg-stone-900/60 text-stone-600 dark:text-stone-400 border-stone-200/50 dark:border-stone-800 hover:border-brand-accent/30"
+                }`}
+                id={`project-${project.id}-shot-tab-${idx}`}
+              >
+                {shot.tag || `Screen ${idx + 1}`}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Text descriptions */}
         <div>
@@ -237,7 +473,7 @@ function BentoCard({ project }: { project: Project; key?: string }) {
             <span>{project.title}</span>
             <ArrowUpRight className="w-4 h-4 text-stone-400 group-hover:text-brand-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
           </h3>
-          <p className="mt-2.5 font-sans text-xs sm:text-sm text-stone-500 dark:text-stone-400 leading-relaxed font-normal">
+          <p className="mt-2 font-sans text-xs sm:text-sm text-stone-500 dark:text-stone-400 leading-relaxed font-normal">
             {project.description}
           </p>
         </div>
@@ -245,36 +481,30 @@ function BentoCard({ project }: { project: Project; key?: string }) {
       </div>
 
       {/* Lower Slots: Tech Stack and Actions */}
-      <div className="mt-6 flex flex-col gap-5">
+      <div className="mt-5 flex flex-col gap-4">
         
         {/* Dynamic Stack Badges */}
         <div className="flex flex-wrap gap-1.5">
-          {project.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="font-mono text-[10px] bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-300 border border-stone-200/40 dark:border-stone-800/80 px-2.5 py-1 rounded-lg"
-            >
-              {tech}
-            </span>
-          ))}
+          {project.techStack.map((tech) => {
+            const isReact = tech.toLowerCase().includes("react");
+            return (
+              <span
+                key={tech}
+                className={`font-mono text-[10px] px-2.5 py-1 rounded-lg border ${
+                  isReact
+                    ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/25 font-semibold"
+                    : "bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200/40 dark:border-stone-800/80"
+                }`}
+              >
+                {tech}
+              </span>
+            );
+          })}
         </div>
 
         {/* Client triggers/URLs */}
-        <div className="flex items-center justify-between pt-4 border-t border-stone-100 dark:border-stone-900">
+        <div className="flex items-center justify-between pt-3.5 border-t border-stone-100 dark:border-stone-900">
           <div className="flex items-center gap-3">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-stone-700 dark:text-stone-300 hover:text-brand-accent dark:hover:text-brand-accent text-xs font-semibold tracking-wide transition-colors"
-                id={`project-live-${project.id}`}
-              >
-                <Link2 className="w-3.5 h-3.5 text-stone-400 hover:text-brand-accent" />
-                <span>Live Demo</span>
-              </a>
-            )}
-            
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
@@ -284,7 +514,7 @@ function BentoCard({ project }: { project: Project; key?: string }) {
                 id={`project-gh-${project.id}`}
               >
                 <Github className="w-3.5 h-3.5 text-stone-400 hover:text-brand-accent" />
-                <span>Source</span>
+                <span>Source Code</span>
               </a>
             )}
           </div>

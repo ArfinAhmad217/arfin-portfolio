@@ -1,4 +1,11 @@
 import { Project, ExperienceItem, BlogPost, SkillGroup } from "./types";
+import schoolDashboardImg from "./assets/images/school-erp-dashboard.jpg";
+import schoolLoginImg from "./assets/images/school-erp-login.jpg";
+import schoolPromotionImg from "./assets/images/school-erp-promotion.jpg";
+import schoolAddStudentImg from "./assets/images/school-erp-add-student.jpg";
+import warehouseSurveyImg from "./assets/images/warehouse-survey-details.jpg";
+import warehouseLoginImg from "./assets/images/warehouse-login-portal.jpg";
+import warehouseZonalApprovalImg from "./assets/images/warehouse-zonal-approval.jpg";
 
 export const PERSONAL_INFO = {
   name: "Md Arfin Ahmad",
@@ -22,10 +29,26 @@ export const PROJECTS_DATA: Project[] = [
   {
     id: "warehouse-system",
     title: "Smart Warehouse Management System",
-    description: "A highly-responsive logistics and inventory tracker visualizing live physical stocks, shipment routing pipelines, and stock alert levels with real-time telemetry dashboards.",
+    description: "An enterprise commodity logistics and inventory tracking system featuring shed survey logging, real-time geolocation tagging, zonal approval workflows, and physical stock telemetry.",
     techStack: ["Python", "Flask", "PostgreSQL", "GitHub"],
-    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
-    liveUrl: "https://example.com/demo/warehouse",
+    imageUrl: warehouseSurveyImg,
+    screenshots: [
+      {
+        title: "Open Shed Survey & GeoLocation Mapping",
+        url: warehouseSurveyImg,
+        tag: "Survey & Map"
+      },
+      {
+        title: "Commodity Management Portal Login",
+        url: warehouseLoginImg,
+        tag: "Secure Login"
+      },
+      {
+        title: "Zonal Head Survey Approval Workflow",
+        url: warehouseZonalApprovalImg,
+        tag: "Approval Portal"
+      }
+    ],
     githubUrl: "https://github.com/ArfinAhmad217",
     caseStudyUrl: "#",
     featured: true,
@@ -34,10 +57,31 @@ export const PROJECTS_DATA: Project[] = [
   {
     id: "school-system",
     title: "School Management System",
-    description: "An end-to-end academic platform for student enrollment, grade management, automated attendance logging, teacher scheduling, fee management, and parent-teacher communication portals.",
-    techStack: ["Python", "FastAPI", "PostgreSQL", "AWS", "GitHub CI/CD"],
-    imageUrl: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80",
-    liveUrl: "https://example.com/demo/school",
+    description: "An end-to-end academic ERP platform with a modern React.js frontend and FastAPI backend for student enrollment, promotion tracking, fee management, attendance logging, and interactive admin dashboards.",
+    techStack: ["React.js", "Python", "FastAPI", "PostgreSQL", "AWS", "GitHub CI/CD"],
+    imageUrl: schoolDashboardImg,
+    screenshots: [
+      {
+        title: "Admin Analytics Dashboard",
+        url: schoolDashboardImg,
+        tag: "Dashboard"
+      },
+      {
+        title: "Student & Faculty Portal Login",
+        url: schoolLoginImg,
+        tag: "Login Portal"
+      },
+      {
+        title: "Student Promotion Log List",
+        url: schoolPromotionImg,
+        tag: "Promotion Log"
+      },
+      {
+        title: "Student Enrollment & Records Form",
+        url: schoolAddStudentImg,
+        tag: "Add Student"
+      }
+    ],
     githubUrl: "https://github.com/ArfinAhmad217",
     caseStudyUrl: "#",
     featured: true,
