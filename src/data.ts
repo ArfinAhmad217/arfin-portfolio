@@ -6,6 +6,8 @@ import schoolAddStudentImg from "./assets/images/school-erp-add-student.jpg";
 import warehouseSurveyImg from "./assets/images/warehouse-survey-details.jpg";
 import warehouseLoginImg from "./assets/images/warehouse-login-portal.jpg";
 import warehouseZonalApprovalImg from "./assets/images/warehouse-zonal-approval.jpg";
+import agenticChatbotImg from "./assets/images/agentic-chatbot-app.jpg";
+import agenticGraphImg from "./assets/images/agentic-graph-view.jpg";
 
 export const PERSONAL_INFO = {
   name: "Md Arfin Ahmad",
@@ -14,9 +16,9 @@ export const PERSONAL_INFO = {
   description: "3 years of experience in software development, specializing in Python, FastAPI, Flask, Django, and AI/GenAI. Experienced in building scalable backend systems, REST APIs, and AI-powered applications with PostgreSQL and AWS. I enjoy building practical AI-powered solutions while keeping backend systems simple, scalable, and reliable.",
   metrics: [
     { label: "Years Experience", value: "3+" },
-    { label: "Completed Projects", value: "2+" },
-    { label: "Scalable Projects", value: "2+" },
-    { label: "AI Specialist", value: "GenAI" }
+    { label: "Completed Projects", value: "3+" },
+    { label: "Scalable Systems", value: "3+" },
+    { label: "AI Specialist", value: "GenAI / LangGraph" }
   ],
   socials: {
     github: "https://github.com/ArfinAhmad217",
@@ -26,6 +28,29 @@ export const PERSONAL_INFO = {
 };
 
 export const PROJECTS_DATA: Project[] = [
+  {
+    id: "ai-agentic-chatbot",
+    title: "AI Agentic Chatbot",
+    description: "An autonomous multi-agent reasoning and decision-making chatbot leveraging LangGraph state graphs and LangChain orchestrations. Features tool routing, database querying, web retrieval, and an interactive Streamlit UI powered by FastAPI backend services.",
+    techStack: ["Python", "Streamlit", "FastAPI", "GenAI / LLM", "LangGraph", "LangChain"],
+    imageUrl: agenticChatbotImg,
+    screenshots: [
+      {
+        title: "Agentic Reasoning & Chat Interface",
+        url: agenticChatbotImg,
+        tag: "Interactive Chat"
+      },
+      {
+        title: "LangGraph Multi-Agent Workflow State",
+        url: agenticGraphImg,
+        tag: "Graph Workflow"
+      }
+    ],
+    githubUrl: "https://github.com/ArfinAhmad217",
+    caseStudyUrl: "#",
+    featured: true,
+    gridSpan: "md:col-span-2 lg:col-span-1"
+  },
   {
     id: "warehouse-system",
     title: "Smart Warehouse Management System",

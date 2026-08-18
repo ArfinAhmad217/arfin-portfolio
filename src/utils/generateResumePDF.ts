@@ -171,11 +171,37 @@ export function generateResumeDoc() {
   // 5. PROJECTS
   y = addSectionHeader("Projects", y);
 
-  // Project 1
+  // Project 1 - AI Agentic Chatbot
   doc.setFont("Helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(15, 23, 42);
-  doc.text("School Management System | Full stack Web Application | Python, FastAPI, PostgreSQL, AWS", margin, y);
+  doc.text("AI Agentic Chatbot | Python, Streamlit, FastAPI, LangGraph, LangChain, GenAI/LLM", margin, y);
+  doc.text("2026", pageWidth - margin, y, { align: "right" });
+  y += 11;
+
+  const projAiBullets = [
+    "Developed an autonomous multi-agent reasoning and decision-making system using LangGraph state graphs and LangChain orchestrations for dynamic task decomposition and tool execution.",
+    "Integrated multi-agent tools (SQL query agent, vector document retriever, Python code executor, web search) with FastAPI backend microservices and an interactive Streamlit UI."
+  ];
+
+  doc.setFont("Helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(51, 65, 85);
+
+  projAiBullets.forEach((bullet) => {
+    doc.text("•", margin + 2, y);
+    const bulletLines = doc.splitTextToSize(bullet, contentWidth - 12);
+    doc.text(bulletLines, margin + 10, y);
+    y += bulletLines.length * 10 + 2;
+  });
+
+  y += 4;
+
+  // Project 2 - School Management System
+  doc.setFont("Helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(15, 23, 42);
+  doc.text("School Management System | Full stack Web Application | React.js, Python, FastAPI, PostgreSQL, AWS", margin, y);
   doc.text("Sep 2025", pageWidth - margin, y, { align: "right" });
   y += 11;
 
@@ -197,11 +223,11 @@ export function generateResumeDoc() {
 
   y += 4;
 
-  // Project 2
+  // Project 3 - SLCM Warehouse
   doc.setFont("Helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(15, 23, 42);
-  doc.text("SLCM -Warehouse | Full Stack Web Application | Python, Flask, PostgreSQL, AWS", margin, y);
+  doc.text("SLCM - Warehouse Management | Full Stack Web Application | Python, Flask, PostgreSQL, AWS", margin, y);
   doc.text("Aug 2023", pageWidth - margin, y, { align: "right" });
   y += 11;
 

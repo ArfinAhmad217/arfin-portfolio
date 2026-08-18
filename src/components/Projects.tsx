@@ -486,15 +486,27 @@ function BentoCard({
         {/* Dynamic Stack Badges */}
         <div className="flex flex-wrap gap-1.5">
           {project.techStack.map((tech) => {
-            const isReact = tech.toLowerCase().includes("react");
+            const lower = tech.toLowerCase();
+            const isReact = lower.includes("react");
+            const isAI = lower.includes("genai") || lower.includes("llm") || lower.includes("langgraph") || lower.includes("langchain");
+            const isStreamlit = lower.includes("streamlit");
+            const isFastAPI = lower.includes("fastapi");
+
+            let badgeStyle = "bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200/40 dark:border-stone-800/80";
+            if (isAI) {
+              badgeStyle = "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25 font-semibold";
+            } else if (isStreamlit) {
+              badgeStyle = "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/25 font-semibold";
+            } else if (isFastAPI) {
+              badgeStyle = "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25 font-semibold";
+            } else if (isReact) {
+              badgeStyle = "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/25 font-semibold";
+            }
+
             return (
               <span
                 key={tech}
-                className={`font-mono text-[10px] px-2.5 py-1 rounded-lg border ${
-                  isReact
-                    ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/25 font-semibold"
-                    : "bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200/40 dark:border-stone-800/80"
-                }`}
+                className={`font-mono text-[10px] px-2.5 py-1 rounded-lg border ${badgeStyle}`}
               >
                 {tech}
               </span>
