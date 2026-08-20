@@ -12,7 +12,9 @@ export interface Project {
   imageUrl: string;
   screenshots?: ProjectScreenshot[];
   liveUrl?: string;
+  liveNote?: string;
   githubUrl?: string;
+  sourceNote?: string;
   caseStudyUrl?: string;
   featured: boolean;
   gridSpan: string;

@@ -6,9 +6,10 @@ interface NavbarProps {
   isDarkMode: boolean;
   toggleTheme: () => void;
   activeSection: string;
+  onOpenResume: () => void;
 }
 
-export default function Navbar({ activeSection }: NavbarProps) {
+export default function Navbar({ activeSection, onOpenResume }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -43,7 +44,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
   return (
     <nav
       id="main-nav"
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-5xl z-50 px-4 transition-all duration-300 ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-5xl z-40 px-4 transition-all duration-300 ${
         scrolled ? "top-2" : "top-4"
       }`}
     >
@@ -81,16 +82,25 @@ export default function Navbar({ activeSection }: NavbarProps) {
         </div>
 
         {/* Utility Buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* Resume Download Button */}
+        <div className="hidden md:flex items-center gap-2">
+          {/* View Resume Button (Opens Modal) */}
+          <button
+            onClick={onOpenResume}
+            className="flex items-center gap-1.5 bg-[#111111] dark:bg-stone-100 hover:bg-brand-accent dark:hover:bg-brand-accent text-white dark:text-[#111111] hover:text-white dark:hover:text-white px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 hover:shadow-md focus:outline-none active:scale-95 cursor-pointer"
+            id="resume-view-btn-desktop"
+            title="View Interactive Resume"
+          >
+            <span>Resume</span>
+          </button>
+
+          {/* Quick PDF Download Button */}
           <button
             onClick={() => downloadResumePDF()}
-            className="flex items-center gap-1.5 bg-[#111111] dark:bg-stone-100 hover:bg-[#FF6B35] dark:hover:bg-[#FF6B35] text-white dark:text-[#111111] hover:text-white dark:hover:text-white px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 hover:shadow-md focus:outline-none active:scale-95 cursor-pointer"
-            id="resume-btn-desktop"
-            title="Download Resume PDF"
+            className="p-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-brand-accent dark:hover:bg-brand-accent text-stone-700 dark:text-stone-200 hover:text-white dark:hover:text-white transition-colors cursor-pointer"
+            id="resume-quick-download-desktop"
+            title="Direct Download PDF"
           >
-            <Download className="w-3.5 h-3.5 text-brand-accent" />
-            <span>Download Resume</span>
+            <Download className="w-4 h-4" />
           </button>
         </div>
 
@@ -129,18 +139,30 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
           <div className="h-px bg-stone-200/70 dark:bg-stone-800" />
 
-          {/* Mobile CTA */}
-          <button
-            onClick={() => {
-              setIsOpen(false);
-              downloadResumePDF();
-            }}
-            className="flex items-center justify-center gap-2 bg-[#111111] dark:bg-stone-100 hover:bg-brand-accent dark:hover:bg-brand-accent text-white dark:text-[#111111] hover:text-white dark:hover:text-white py-3 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer"
-            id="resume-btn-mobile"
-          >
-            <Download className="w-4 h-4 text-brand-accent" />
-            <span>Download PDF Resume</span>
-          </button>
+          {/* Mobile CTAs */}
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                onOpenResume();
+              }}
+              className="flex items-center justify-center gap-2 bg-[#111111] dark:bg-stone-100 hover:bg-brand-accent dark:hover:bg-brand-accent text-white dark:text-[#111111] hover:text-white dark:hover:text-white py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer"
+              id="resume-view-btn-mobile"
+            >
+              <span>View Resume</span>
+            </button>
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                downloadResumePDF();
+              }}
+              className="flex items-center justify-center gap-2 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer"
+              id="resume-download-btn-mobile"
+            >
+              <Download className="w-4 h-4 text-brand-accent" />
+              <span>Download PDF</span>
+            </button>
+          </div>
         </div>
       )}
     </nav>

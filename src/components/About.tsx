@@ -5,8 +5,8 @@ import { PERSONAL_INFO } from "../data";
 export default function About() {
   const stats = [
     { label: "Years Experience", value: "3+", icon: <Terminal className="w-5 h-5 text-brand-accent" /> },
-    { label: "Dozens of Projects", value: "2+", icon: <NotebookTabs className="w-5 h-5 text-brand-accent" /> },
-    { label: "Scalable Projects", value: "2+", icon: <HardDrive className="w-5 h-5 text-brand-accent" /> },
+    { label: "Completed Projects", value: "4+", icon: <NotebookTabs className="w-5 h-5 text-brand-accent" /> },
+    { label: "Scalable Systems", value: "3+", icon: <HardDrive className="w-5 h-5 text-brand-accent" /> },
     { label: "AI & Backend", value: "Expert", icon: <Cpu className="w-5 h-5 text-brand-accent" /> },
   ];
 

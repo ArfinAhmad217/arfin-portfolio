@@ -8,33 +8,77 @@ import warehouseLoginImg from "./assets/images/warehouse-login-portal.jpg";
 import warehouseZonalApprovalImg from "./assets/images/warehouse-zonal-approval.jpg";
 import agenticChatbotImg from "./assets/images/agentic-chatbot-app.jpg";
 import agenticGraphImg from "./assets/images/agentic-graph-view.jpg";
+import aiChatbotAgentsImg from "./assets/images/ai-chatbot-agents-interface.jpg";
+import warehouseAssistantImg from "./assets/images/warehouse-assistant-ui.jpg";
+import warehouseSwaggerImg from "./assets/images/warehouse-swagger-ui.jpg";
 
 export const PERSONAL_INFO = {
-  name: "Md Arfin Ahmad",
+  name: "MD ARFIN AHMAD",
   greetings: "👋 Hey! I'm Md Arfin Ahmad",
-  title: "SOFTWARE ENGINEER",
-  description: "3 years of experience in software development, specializing in Python, FastAPI, Flask, Django, and AI/GenAI. Experienced in building scalable backend systems, REST APIs, and AI-powered applications with PostgreSQL and AWS. I enjoy building practical AI-powered solutions while keeping backend systems simple, scalable, and reliable.",
+  title: "SOFTWARE ENGINEER (AI-BACKEND)",
+  phone: "+91 6204215086",
+  location: "BiharSharif, Nalanda, Bihar, PIN - 803101",
+  summary: "Software Engineer (AI-Backend) with 3 years of hands-on experience designing, developing, and deploying scalable APIs and back-end solutions. REST APIs and AI-powered applications using Python, Flask and FastAPI. Experienced with PostgreSQL, AWS, CI/CD and LLM integration. Proficient in building data-driven applications with SQL and NoSQL databases, integrating external APIs, and optimizing back-end performance. Collaborated with business stakeholders to gather requirements and deliver technical solutions. Automated deployment pipelines using GitHub Actions, reducing deployment time by up to 80%. Experienced in end-to-end database design, scalable applications development, and deployment.",
+  description: "Software Engineer (AI-Backend) with 3 years of hands-on experience designing, developing, and deploying scalable APIs, back-end solutions, and AI-powered applications using Python, FastAPI, Flask, PostgreSQL, AWS, LangChain, and LLMs.",
   metrics: [
     { label: "Years Experience", value: "3+" },
-    { label: "Completed Projects", value: "3+" },
-    { label: "Scalable Systems", value: "3+" },
+    { label: "Completed Projects", value: "4+" },
+    { label: "Scalable Systems", value: "4+" },
     { label: "AI Specialist", value: "GenAI / LangGraph" }
   ],
   socials: {
     github: "https://github.com/ArfinAhmad217",
-    linkedin: "https://www.linkedin.com/in/md-arfin-rizvi-07765527b/",
+    linkedin: "https://www.linkedin.com/in/md-arfin-ahmad-",
     email: "syedahmad1306@gmail.com"
   }
 };
 
 export const PROJECTS_DATA: Project[] = [
   {
+    id: "warehouse-assistant-nlq",
+    title: "Warehouse Assistant – Natural Language Query",
+    description: "An AI-powered warehouse management assistant that allows users to query warehouse data using natural language instead of writing SQL queries. The application converts user questions into database queries, retrieves relevant warehouse information, and returns clear, easy-to-understand answers.",
+    techStack: [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "LangChain",
+      "Groq / LLM",
+      "Pydantic",
+      "Uvicorn",
+      "Docker"
+    ],
+    imageUrl: warehouseAssistantImg,
+    screenshots: [
+      {
+        title: "Natural Language Query & SQL Generation Interface",
+        url: warehouseAssistantImg,
+        tag: "NL Query & SQL"
+      },
+      {
+        title: "FastAPI Swagger / OpenAPI REST Documentation",
+        url: warehouseSwaggerImg,
+        tag: "Swagger API Docs"
+      }
+    ],
+    githubUrl: "https://github.com/ArfinAhmad217",
+    liveNote: "Coming Soon",
+    featured: true,
+    gridSpan: "md:col-span-1"
+  },
+  {
     id: "ai-agentic-chatbot",
     title: "AI Agentic Chatbot",
     description: "An autonomous multi-agent reasoning and decision-making chatbot leveraging LangGraph state graphs and LangChain orchestrations. Features tool routing, database querying, web retrieval, and an interactive Streamlit UI powered by FastAPI backend services.",
     techStack: ["Python", "Streamlit", "FastAPI", "GenAI / LLM", "LangGraph", "LangChain"],
-    imageUrl: agenticChatbotImg,
+    imageUrl: aiChatbotAgentsImg,
     screenshots: [
+      {
+        title: "AI Chatbot Agents – Streamlit Interface (Groq / OpenAI & Tool Routing)",
+        url: aiChatbotAgentsImg,
+        tag: "Agent UI & Config"
+      },
       {
         title: "Agentic Reasoning & Chat Interface",
         url: agenticChatbotImg,
@@ -49,7 +93,7 @@ export const PROJECTS_DATA: Project[] = [
     githubUrl: "https://github.com/ArfinAhmad217",
     caseStudyUrl: "#",
     featured: true,
-    gridSpan: "md:col-span-2 lg:col-span-1"
+    gridSpan: "md:col-span-1"
   },
   {
     id: "warehouse-system",
@@ -74,7 +118,8 @@ export const PROJECTS_DATA: Project[] = [
         tag: "Approval Portal"
       }
     ],
-    githubUrl: "https://github.com/ArfinAhmad217",
+    sourceNote: "Private Repository",
+    liveNote: "Live but accessible to company",
     caseStudyUrl: "#",
     featured: true,
     gridSpan: "md:col-span-1"
@@ -107,7 +152,8 @@ export const PROJECTS_DATA: Project[] = [
         tag: "Add Student"
       }
     ],
-    githubUrl: "https://github.com/ArfinAhmad217",
+    sourceNote: "Private (Company Project)",
+    liveNote: "Live but accessible to company",
     caseStudyUrl: "#",
     featured: true,
     gridSpan: "md:col-span-1"
@@ -165,47 +211,72 @@ export const SKILLS_DATA: SkillGroup[] = [
     skills: [
       { name: "Python", level: "Expert" },
       { name: "JavaScript", level: "Expert" },
-      { name: "C#", level: "Expert" },
+      { name: "C#", level: "Intermediate" },
       { name: "SQL", level: "Expert" },
-      { name: "HTML / CSS", level: "Expert" }
+      { name: "HTML / CSS / SASS", level: "Expert" }
     ]
   },
   {
-    category: "Frontend",
-    skills: [
-      { name: "React", level: "Expert" },
-      { name: "Tailwind CSS", level: "Expert" },
-      { name: "Canvas", level: "Expert" }
-    ]
-  },
-  {
-    category: "Backend & Systems",
+    category: "Frameworks & Web",
     skills: [
       { name: "FastAPI", level: "Expert" },
-      { name: "Express / Node.js", level: "Expert" },
       { name: "Flask", level: "Expert" },
-      { name: "Django", level: "Expert" },
-      { name: "SQL Server / PostgreSQL", level: "Expert" }
+      { name: "ASP.Net Core Web API", level: "Intermediate" },
+      { name: "React.js", level: "Expert" },
+      { name: "Streamlit", level: "Expert" }
+    ]
+  },
+  {
+    category: "Database & ORM",
+    skills: [
+      { name: "PostgreSQL", level: "Expert" },
+      { name: "SQLAlchemy", level: "Expert" },
+      { name: "MongoDB", level: "Intermediate" },
+      { name: "Query Optimization", level: "Expert" }
     ]
   },
   {
     category: "AI / GenAI Specialist",
     skills: [
-      { name: "LangChain Agents", level: "Expert" },
-      { name: "OpenAI / Gemini APIs", level: "Expert" },
-      { name: "RAG Architectures", level: "Beginner" },
-      { name: "ChromaDB / Vector Search", level: "Beginner" },
-      { name: "Model Context Protocol (MCP)", level: "Beginner" },
-      { name: "AI Agents Workflows", level: "Beginner" }
+      { name: "GenAI / LLM", level: "Expert" },
+      { name: "LangChain", level: "Expert" },
+      { name: "LangGraph", level: "Expert" },
+      { name: "AI Agents", level: "Expert" },
+      { name: "Prompt Engineering", level: "Expert" },
+      { name: "RAG & ChromaDB", level: "Expert" },
+      { name: "Pandas & NumPy", level: "Expert" },
+      { name: "OpenAI / Gemini", level: "Expert" }
     ]
   },
   {
-    category: "DevOps & Cloud",
+    category: "Cloud & DevOps",
     skills: [
-      { name: "Docker Containers", level: "Expert" },
-      { name: "AWS Cloud Services", level: "Intermediate" },
-      { name: "GitHub Actions CI/CD", level: "Expert" }
+      { name: "AWS (EC2, S3, IAM)", level: "Expert" },
+      { name: "CI/CD Pipeline", level: "Expert" },
+      { name: "GitHub Actions", level: "Expert" },
+      { name: "Docker", level: "Expert" }
     ]
+  },
+  {
+    category: "Architecture & Tools",
+    skills: [
+      { name: "REST API Architecture", level: "Expert" },
+      { name: "Microservices", level: "Expert" },
+      { name: "OOP & Design Patterns", level: "Expert" },
+      { name: "Agile / Scrum", level: "Expert" },
+      { name: "Postman & Swagger", level: "Expert" },
+      { name: "Git & GitHub", level: "Expert" }
+    ]
+  }
+];
+
+export const EDUCATION_DATA = [
+  {
+    institution: "Jamia Millia Islamia",
+    degree: "Bsc in Computer Science & IT",
+    duration: "Nov 2020 – May 2023",
+    location: "New Delhi",
+    icon: "🎓"
   }
 ];
 

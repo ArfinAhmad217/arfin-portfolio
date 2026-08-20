@@ -7,6 +7,7 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ResumeModal from "./components/ResumeModal";
 
 export default function App() {
   // Theme state: default to dark for the "futuristic workspace" vibe!
@@ -17,6 +18,7 @@ export default function App() {
 
   const [activeSection, setActiveSection] = useState<string>("about");
   const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState<boolean>(false);
 
   // Sync dark class on document element
   useEffect(() => {
@@ -81,6 +83,14 @@ export default function App() {
     setIsDarkMode((prev) => !prev);
   };
 
+  const handleOpenResume = () => {
+    setIsResumeModalOpen(true);
+  };
+
+  const handleCloseResume = () => {
+    setIsResumeModalOpen(false);
+  };
+
   return (
     <div className="relative min-h-screen font-sans selection:bg-brand-accent selection:text-white transition-colors duration-300">
       
@@ -99,13 +109,14 @@ export default function App() {
         isDarkMode={isDarkMode}
         toggleTheme={toggleTheme}
         activeSection={activeSection}
+        onOpenResume={handleOpenResume}
       />
 
       {/* Primary Landing Page Container */}
       <main className="relative z-10 w-full">
         
         {/* Hero / About Section */}
-        <Hero />
+        <Hero onOpenResume={handleOpenResume} />
 
         {/* Experience Timeline */}
         <Experience />
@@ -122,7 +133,13 @@ export default function App() {
       </main>
 
       {/* Footnote information */}
-      <Footer />
+      <Footer onOpenResume={handleOpenResume} />
+
+      {/* Interactive In-App Resume Sheet Modal */}
+      <ResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={handleCloseResume}
+      />
     </div>
   );
 }

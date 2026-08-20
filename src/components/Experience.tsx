@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
-import { Briefcase, Calendar, Star, ChevronRight, MapPin } from "lucide-react";
-import { EXPERIENCE_DATA } from "../data";
+import { Briefcase, Calendar, Star, ChevronRight, MapPin, GraduationCap } from "lucide-react";
+import { EXPERIENCE_DATA, EDUCATION_DATA } from "../data";
 
 export default function Experience() {
   return (
@@ -11,10 +11,10 @@ export default function Experience() {
         <div className="flex flex-col items-center text-center mb-16">
           <div className="flex items-center gap-1.5 bg-stone-100 dark:bg-stone-800/40 px-3 py-1 rounded-full text-xs font-semibold tracking-wide text-stone-600 dark:text-stone-300 border border-stone-200/50 dark:border-stone-700/50">
             <Briefcase className="w-3.5 h-3.5 text-brand-accent" />
-            <span>Career Milestones</span>
+            <span>Career & Academic Milestones</span>
           </div>
           <h2 className="font-display font-bold text-3xl md:text-5xl tracking-tight text-brand-text-primary dark:text-white mt-4 max-w-lg">
-            My Professional Timeline
+            Experience & Education
           </h2>
           <div className="w-12 h-1 bg-brand-accent rounded mt-4" />
         </div>
@@ -131,6 +131,54 @@ export default function Experience() {
                 </motion.div>
               );
             })}
+
+            {/* Education Card on Timeline */}
+            {EDUCATION_DATA.map((edu, eIdx) => (
+              <motion.div
+                key={eIdx}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="relative pl-8 sm:pl-12 group"
+                id="timeline-item-education"
+              >
+                {/* Connector Pulsing Node */}
+                <span className="absolute left-[-11px] top-1.5 w-[22px] h-[22px] rounded-full bg-white dark:bg-stone-950 border-4 border-brand-accent flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 z-10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-accent/50 animate-ping absolute" />
+                </span>
+
+                {/* Main Card Container */}
+                <div className="bg-white dark:bg-stone-950 rounded-2xl border border-brand-border dark:border-stone-800 shadow-sm hover:shadow-md transition-all duration-300 p-6 sm:p-8 relative">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-2xl">{edu.icon}</span>
+                        <h3 className="font-display font-bold text-lg sm:text-xl text-stone-900 dark:text-white group-hover:text-brand-accent transition-colors">
+                          {edu.degree}
+                        </h3>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
+                        <p className="font-sans text-sm text-stone-600 dark:text-stone-300 font-semibold">
+                          {edu.institution}
+                        </p>
+                        <span className="inline-flex items-center gap-1 font-sans text-xs text-stone-500 dark:text-stone-400">
+                          <span className="text-stone-300 dark:text-stone-700">•</span>
+                          <MapPin className="w-3 h-3 text-brand-accent shrink-0" />
+                          <span>{edu.location}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Badge For Duration */}
+                    <div className="inline-flex items-center gap-1.5 self-start md:self-auto bg-stone-100 dark:bg-stone-900 px-3.5 py-1.5 rounded-xl border border-stone-200/40 dark:border-stone-800 text-xs font-mono font-semibold text-stone-600 dark:text-stone-300">
+                      <Calendar className="w-3.5 h-3.5 text-brand-accent" />
+                      <span>{edu.duration}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
         </div>

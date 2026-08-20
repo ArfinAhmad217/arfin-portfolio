@@ -1,10 +1,14 @@
 import { motion } from "motion/react";
-import { ArrowRight, Github, Linkedin, Mail, Award, Sparkles, Terminal, NotebookTabs, HardDrive, Cpu, Download } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Award, Sparkles, Terminal, NotebookTabs, HardDrive, Cpu, Download, FileText } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
 import arfinProfilePhoto from "../assets/images/arfin-profile.jpg";
 import { downloadResumePDF } from "../utils/generateResumePDF";
 
-export default function Hero() {
+interface HeroProps {
+  onOpenResume?: () => void;
+}
+
+export default function Hero({ onOpenResume }: HeroProps) {
   const handleScrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -18,8 +22,8 @@ export default function Hero() {
 
   const stats = [
     { label: "Years Experience", value: "3+", icon: <Terminal className="w-5 h-5 text-brand-accent" /> },
-    { label: "Completed Projects", value: "2+", icon: <NotebookTabs className="w-5 h-5 text-brand-accent" /> },
-    { label: "Scalable Projects", value: "2+", icon: <HardDrive className="w-5 h-5 text-brand-accent" /> },
+    { label: "Completed Projects", value: "4+", icon: <NotebookTabs className="w-5 h-5 text-brand-accent" /> },
+    { label: "Scalable Projects", value: "3+", icon: <HardDrive className="w-5 h-5 text-brand-accent" /> },
     { label: "AI & Backend", value: "Expert", icon: <Cpu className="w-5 h-5 text-brand-accent" /> },
   ];
 
@@ -104,25 +108,36 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center w-full px-4"
+          className="mt-10 flex flex-col sm:flex-row gap-3.5 items-center justify-center w-full px-4"
           id="hero-cta-group"
         >
           <button
             onClick={() => handleScrollTo("projects")}
-            className="w-full sm:w-auto bg-[#111111] dark:bg-stone-100 hover:bg-brand-accent dark:hover:bg-brand-accent text-white dark:text-[#111111] hover:text-white dark:hover:text-white font-medium text-sm tracking-wide px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group focus:outline-none"
+            className="w-full sm:w-auto bg-[#111111] dark:bg-stone-100 hover:bg-brand-accent dark:hover:bg-brand-accent text-white dark:text-[#111111] hover:text-white dark:hover:text-white font-medium text-sm tracking-wide px-7 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group focus:outline-none cursor-pointer"
             id="hero-primary-cta"
           >
             <span>View Projects</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
+
+          {onOpenResume && (
+            <button
+              onClick={onOpenResume}
+              className="w-full sm:w-auto bg-brand-accent hover:bg-orange-600 text-white font-medium text-sm px-7 py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 focus:outline-none cursor-pointer"
+              id="hero-view-resume-cta"
+            >
+              <FileText className="w-4 h-4" />
+              <span>View Resume</span>
+            </button>
+          )}
           
           <button
             onClick={() => downloadResumePDF()}
-            className="w-full sm:w-auto bg-white/80 dark:bg-stone-900/80 hover:bg-stone-100 dark:hover:bg-stone-800 border border-brand-accent/40 dark:border-brand-accent/40 text-stone-900 dark:text-stone-100 font-medium text-sm px-8 py-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 focus:outline-none cursor-pointer"
+            className="w-full sm:w-auto bg-white/90 dark:bg-stone-900/90 hover:bg-stone-100 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-stone-100 font-medium text-sm px-6 py-3.5 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 focus:outline-none cursor-pointer"
             id="hero-download-resume-cta"
           >
             <Download className="w-4 h-4 text-brand-accent" />
-            <span>Download Resume</span>
+            <span>Download PDF</span>
           </button>
         </motion.div>
 
