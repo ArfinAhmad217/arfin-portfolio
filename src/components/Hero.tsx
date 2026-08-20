@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Github, Linkedin, Mail, Award, Sparkles, Terminal, NotebookTabs, HardDrive, Cpu, Download, FileText } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
-import arfinProfilePhoto from "../assets/images/arfin-profile.jpg";
+import arfinProfilePhoto from "../assets/images/Arfin_Photo.jpeg";
 import { downloadResumePDF } from "../utils/generateResumePDF";
 
 interface HeroProps {
